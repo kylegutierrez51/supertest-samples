@@ -19,10 +19,28 @@ describe('POST /auth/register', () => {
     expect(res.body).not.toHaveProperty('password'); // never leak passwords
   });
 
-  it('returns 400 if email or password is missing', async () => {
+  it('returns 400 if password is missing', async () => {
     const res = await request(app)
       .post('/auth/register')
       .send({ email: 'alice@test.com' }); // no password
+
+    expect(res.status).toBe(400);
+    expect(res.body.error).toMatch(/required/i);
+  });
+
+  it('returns 400 if email is missing', async () => {
+    const res = await request(app)
+      .post('/auth/register')
+      .send({ password: 'hi-squidward' }); // no email
+
+    expect(res.status).toBe(400);
+    expect(res.body.error).toMatch(/required/i);
+  });
+
+  it('returns 400 if email and password are missing', async () => {
+    const res = await request(app)
+      .post('/auth/register')
+      .send({}); // no email or password
 
     expect(res.status).toBe(400);
     expect(res.body.error).toMatch(/required/i);
