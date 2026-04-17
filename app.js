@@ -14,7 +14,14 @@ app.use('/profile', profileRoute)
 app.use('/posts', postsRoute);
 app.use('/admin', adminRoute);
 
-app.listen(3000, (err) => {
-  if (err) throw Error(err.message);
-  console.log('server listening on port 3000');
-})
+// if stmt is needed for supertest to work properly
+// use the below line to ignore the below block of code so it doesn't appear in jest --coverage.
+/* istanbul ignore next */ //
+if (require.main === module) {
+  app.listen(3000, (err) => {
+    if (err) throw err;
+    console.log('server listening on port 3000');
+  });
+}
+
+module.exports = app;

@@ -1,4 +1,5 @@
 // routes/posts.js
+// try: http://localhost:3000/posts?page=2&limit=5&category=tech
 const express = require('express');
 const router = express.Router();
 
