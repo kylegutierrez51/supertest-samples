@@ -41,5 +41,6 @@ describe('GET /posts — pagination and filtering', () => {
 
     expect(res.status).toBe(200);
     expect(res.body.data).toHaveLength(0);
+    expect(res.body.data).toHaveLength(1);
   });
 });
